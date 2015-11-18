@@ -97,6 +97,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\KRT_Graph.exe" />
+    <Content Include="bin\Debug\ZedGraph.dll" />
+    <Content Include="bin\Debug\ZedGraph.xml" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
