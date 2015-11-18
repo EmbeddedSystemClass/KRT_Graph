@@ -37,7 +37,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.updTimer50ms = new System.Windows.Forms.Timer(this.components);
+            this.updTimer300ms = new System.Windows.Forms.Timer(this.components);
             this.btnStartStop = new System.Windows.Forms.Button();
             this.txtMax = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -134,11 +134,11 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Интервал";
             // 
-            // updTimer50ms
+            // updTimer300ms
             // 
-            this.updTimer50ms.Enabled = true;
-            this.updTimer50ms.Interval = 50;
-            this.updTimer50ms.Tick += new System.EventHandler(this.updTimer200ms_Tick);
+            this.updTimer300ms.Enabled = true;
+            this.updTimer300ms.Interval = 300;
+            this.updTimer300ms.Tick += new System.EventHandler(this.updTimer200ms_Tick);
             // 
             // btnStartStop
             // 
@@ -281,7 +281,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Timer updTimer50ms;
+        private System.Windows.Forms.Timer updTimer300ms;
         private System.Windows.Forms.Button btnStartStop;
         private System.Windows.Forms.TextBox txtMax;
         private System.Windows.Forms.Label label4;

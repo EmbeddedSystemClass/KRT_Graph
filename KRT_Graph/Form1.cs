@@ -20,6 +20,7 @@ namespace KRT_Graph
         private int _intervalSec = 100;
         private int _maxVal = 1;
         private int _minVal = 0;
+
         public MainForm()
         {
             InitializeComponent();
@@ -97,17 +98,24 @@ namespace KRT_Graph
 
             if (rxCount < 5) return; //Не наше
 
-            for (rxIndex = 0; rxIndex < rxCount; rxIndex++)
+            for (rxIndex = 0; rxIndex < rxCount-4; rxIndex++)
             {
                 if (inBuf[rxIndex] == GetFlowCommand)
                 {
-                    txtDebug.Text = string.Format("{0:X2} {1:X2} {2:X2} {3:X2} {4:X2}", inBuf[rxIndex], inBuf[rxIndex + 1], inBuf[rxIndex + 2],
-                    inBuf[rxIndex + 3], inBuf[rxIndex + 4]);
+                    txtDebug.Text = string.Format("{0:X2} {1:X2} {2:X2} {3:X2} {4:X2}", 
+                        inBuf[rxIndex], inBuf[rxIndex + 1], inBuf[rxIndex + 2], inBuf[rxIndex + 3], inBuf[rxIndex + 4]);
 
-                    int y = (((int) inBuf[rxIndex + 1]) << 24) + (((int) inBuf[rxIndex + 2]) << 16) + (((int) inBuf[rxIndex + 3]) <<
-                            8) + ((int) inBuf[rxIndex + 4]);
-
+                  
                     //int y = BitConverter.ToInt32(inBuf, rxIndex+1);
+                    int y = (((int) inBuf[rxIndex + 1]) << 24) +
+                        (((int) inBuf[rxIndex + 2]) << 16) + 
+                        (((int) inBuf[rxIndex + 3]) <<8) + 
+                        ((int) inBuf[rxIndex + 4]);
+
+
+                    if(y>Math.Max(_maxVal*10,30*1000)) continue; //Всплески
+
+                    
                     txtValue.Text = y.ToString();
                     txtValueMin.Text = (y - _minVal).ToString();
 
@@ -118,7 +126,6 @@ namespace KRT_Graph
                     _singleCurves[1].UpdateData((double)_maxVal / y, x);
                     
                 }
-                if (rxCount - rxIndex < 5) return;
             }
 
         }
@@ -375,12 +382,12 @@ namespace KRT_Graph
         {
             if (btnStartStop.Text == "Stop")
             {
-                updTimer50ms.Stop();
+                updTimer300ms.Stop();
                 btnStartStop.Text = "Start";
             }
             else
             {
-                updTimer50ms.Start();
+                updTimer300ms.Start();
                 btnStartStop.Text = "Stop";
             }
             
