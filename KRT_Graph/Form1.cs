@@ -105,7 +105,6 @@ namespace KRT_Graph
                     txtDebug.Text = string.Format("{0:X2} {1:X2} {2:X2} {3:X2} {4:X2}", 
                         inBuf[rxIndex], inBuf[rxIndex + 1], inBuf[rxIndex + 2], inBuf[rxIndex + 3], inBuf[rxIndex + 4]);
 
-                  
                     //int y = BitConverter.ToInt32(inBuf, rxIndex+1);
                     int y = (((int) inBuf[rxIndex + 1]) << 24) +
                         (((int) inBuf[rxIndex + 2]) << 16) + 
