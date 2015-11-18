@@ -112,7 +112,6 @@ namespace KRT_Graph
                         (((int) inBuf[rxIndex + 3]) <<8) + 
                         ((int) inBuf[rxIndex + 4]);
 
-
                     if(y>Math.Max(_maxVal*10,30*1000)) continue; //Всплески
 
                     
