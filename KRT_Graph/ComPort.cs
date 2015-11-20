@@ -13,7 +13,14 @@ namespace KRT_Graph
             {
                 if (_port.IsOpen)
                 {
-                    _port.Close();
+                    try
+                    {
+                        _port.Close();
+                    }
+                    catch
+                    {
+                        if(_port.IsOpen) return false;
+                    }
                 }
                 _port.PortName = portName;
                 _port.BaudRate = int.Parse(baudRate);
@@ -31,7 +38,14 @@ namespace KRT_Graph
             {
                 if (_port.IsOpen)
                 {
-                    _port.Close();
+                    try
+                    {
+                        _port.Close();
+                    }
+                    catch
+                    {
+                        if (_port.IsOpen) return false;
+                    }
                 }
                 _port.PortName = portName;
                 _port.BaudRate = baudRate;
@@ -127,6 +141,10 @@ namespace KRT_Graph
         {
             return _port.IsOpen;
         }
+        public bool isPortChange(string portName, string baudRate)
+        {
+            return (!IsOpen() || portName != _port.PortName || _port.BaudRate.ToString() != baudRate);
+        }
 
         private readonly int[] auchCRCHi = new int[256]
         {
@@ -172,7 +190,7 @@ namespace KRT_Graph
             0x40
         };
 
-        public int CRC16_Check(ref byte[] buf, int begin, int end, bool isWrite = false)
+        public int CRC16_Check(ref byte[] buf, int begin=0, int end=6, bool isWrite = false)
         {
             int j;
             int crc_hi = 0xFF; // high byte of CRC initialized  
