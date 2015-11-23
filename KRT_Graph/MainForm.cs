@@ -350,6 +350,7 @@ namespace KRT_Graph
             {
                 _timeStart = DateTime.Now.AddYears(-1);
                 _dataSaveLayer.ClearData();
+                _graphLayer.ClearData();
                 txtLogMaxdelValue.Text = "";
                 txtLogValuemiMin.Text = "";
             }
