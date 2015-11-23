@@ -17,14 +17,18 @@ namespace KRT_Graph
 
         private ComPort _comPort = new ComPort();
         private GraphLayer _graphLayer = null;
+        private DataSaveLayer _dataSaveLayer = new DataSaveLayer();
         private const byte GetFlowCommand = (byte)'G';
         private int _intervalSec = 100;
         private DateTime _timeStart = new DateTime();
-        private bool _isPlay = false;
-        private bool _isPause = false;
+        private Status _status = Status.Stop;
         private bool _isAutoSize = true;
         private int _maxVal = 1;
         private int _minVal = 0;
+        private int _middleVal = 0;
+        private int[] _yMidArr = new int[100];
+        private int _yMidCnt = 8;
+        private int _yIndex = 0;
 
         public MainForm()
         {
@@ -168,6 +172,28 @@ namespace KRT_Graph
             _graphLayer.UpdateAsis(dtEnd.AddSeconds(-_intervalSec), dtEnd,false);
         } //Дописать ОК
 
+        private void ChangeBtnChecked()
+        {
+            switch (_status)
+            {
+                case Status.Start:
+                    btnStopAndClear.Checked = false;
+                    btnPause.Checked = false;
+                    btnRecAndPlay.Checked = true;
+                    break;
+                case Status.Stop:
+                    btnStopAndClear.Checked = true;
+                    btnPause.Checked = false;
+                    btnRecAndPlay.Checked = false;
+                    break;
+                case Status.Pause:
+                    btnStopAndClear.Checked = false;
+                    btnPause.Checked = true;
+                    btnRecAndPlay.Checked = false;
+                    break;
+            }
+        }
+
         #region События
 
         private void cmbInterval_SelectedIndexChanged(object sender, EventArgs e)
@@ -223,6 +249,8 @@ namespace KRT_Graph
             _minVal = Properties.Settings.Default.MinValue;
             txtMax.Text = _maxVal.ToString();
             txtMin.Text = _minVal.ToString();
+            btnAutoSize.Checked = _isAutoSize;
+            ChangeBtnChecked();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -279,11 +307,26 @@ namespace KRT_Graph
                     txtValueMin.Text = (y - _minVal).ToString();
 
                     y -= _minVal;
-                    
-                    if (_isPlay)
+
+                    _yMidArr[_yIndex] = y;
+                    _yIndex++;
+                    _yIndex %= _yMidCnt;
+
+                    int temp = 0;
+                    for (int i = 0; i < _yMidCnt; i++)
                     {
+                        temp += _yMidArr[(i + _yIndex)%_yMidCnt];
+                    }
+                    txtMidValue.Text = (temp/_yMidCnt).ToString();
+
+                    if (_status == Status.Start)
+                    {
+                        txtLogValuemiMin.AppendText(y.ToString() + "\r\n");
+                        txtLogMaxdelValue.AppendText(((double)_maxVal /(double)y).ToString() + "\r\n");
+
                         DateTime x = DateTime.Now.AddTicks(-_timeStart.Ticks);
                         _graphLayer.UpdateData(y/1000.0,x); //Делим в литры!
+                        _dataSaveLayer.UpdateData(y/1000.0,x);
                     }
                 }
             }
@@ -294,7 +337,7 @@ namespace KRT_Graph
 
         private void updTimer200ms_Tick(object sender, EventArgs e)
         {
-            if (_isPlay)
+            if (_status == Status.Start)
             {
                 DateTime dtEnd = DateTime.Now.AddTicks(-_timeStart.Ticks);
                 _graphLayer.UpdateAsis(dtEnd.AddSeconds(-_intervalSec), dtEnd, _isAutoSize);
@@ -303,21 +346,28 @@ namespace KRT_Graph
 
         private void btnRecAndPlay_Click(object sender, EventArgs e)
         {
-            _isPlay = true;
-            if (!_isPause) _timeStart = DateTime.Now.AddYears(-1);
+            if (_status == Status.Stop)
+            {
+                _timeStart = DateTime.Now.AddYears(-1);
+                _dataSaveLayer.ClearData();
+                txtLogMaxdelValue.Text = "";
+                txtLogValuemiMin.Text = "";
+            }
+            _status = Status.Start;
+            ChangeBtnChecked();
         }
 
         private void btnPause_Click(object sender, EventArgs e)
         {
-            if (_isPlay) _isPause = true;
-            _isPlay = false;
+           _status = Status.Pause;
+           ChangeBtnChecked();
         }
  
         private void btnStopAndClear_Click(object sender, EventArgs e)
         {
-            _isPlay = false;
-            _isPause = false;
+            _status = Status.Stop;
             _graphLayer.ClearData();
+            ChangeBtnChecked();
 
             _timeStart = DateTime.Now.AddYears(-1);
             DateTime dtEnd = DateTime.Now.AddTicks(-_timeStart.Ticks);
@@ -326,14 +376,24 @@ namespace KRT_Graph
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Данная функция ещё не реализована");
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                _dataSaveLayer.SaveData(saveFileDialog1.FileName);
+            }
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            _isPlay = false;
-            _isPause = false;
-            MessageBox.Show("Данная функция ещё не реализована");
+            
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                _status = Status.Stop;
+                
+                ChangeBtnChecked();
+                _dataSaveLayer.LoadData(openFileDialog1.FileName);
+                _dataSaveLayer.CopyData(_graphLayer, _intervalSec);
+                _dataSaveLayer.TxtLog(txtLogValuemiMin,txtLogMaxdelValue,_maxVal);
+            }
         }
 
         private void btnScreenshot_Click(object sender, EventArgs e)
@@ -345,6 +405,7 @@ namespace KRT_Graph
         {
             DateTime dtEnd = _graphLayer.GetEndTime();
             _graphLayer.UpdateAsis(dtEnd.AddSeconds(-_intervalSec), dtEnd);
+           
             _isAutoSize = (btnAutoSize.Checked ^= true);
         }
 
@@ -359,11 +420,11 @@ namespace KRT_Graph
         }
 
        
-
-       
-     
-      
-
    
+    }
+
+    public enum Status
+    {
+        Start, Pause, Stop
     }
 }

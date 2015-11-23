@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComPort.cs" />
+    <Compile Include="DataSaveLayer.cs" />
     <Compile Include="GraphLayer.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

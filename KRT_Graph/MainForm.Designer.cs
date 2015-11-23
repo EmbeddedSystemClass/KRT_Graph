@@ -66,7 +66,13 @@
             this.btnScreenshot = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnAutoSize = new System.Windows.Forms.ToolStripButton();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtLogValuemiMin = new System.Windows.Forms.TextBox();
+            this.txtLogMaxdelValue = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.txtMidValue = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -85,7 +91,7 @@
             this.zGraph.ScrollMinX = 0D;
             this.zGraph.ScrollMinY = 0D;
             this.zGraph.ScrollMinY2 = 0D;
-            this.zGraph.Size = new System.Drawing.Size(869, 374);
+            this.zGraph.Size = new System.Drawing.Size(716, 375);
             this.zGraph.TabIndex = 0;
             // 
             // cmbInterval
@@ -103,7 +109,7 @@
             "10 мин",
             "30 мин",
             "60 мин"});
-            this.cmbInterval.Location = new System.Drawing.Point(955, 89);
+            this.cmbInterval.Location = new System.Drawing.Point(630, 89);
             this.cmbInterval.Name = "cmbInterval";
             this.cmbInterval.Size = new System.Drawing.Size(98, 21);
             this.cmbInterval.TabIndex = 1;
@@ -113,7 +119,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(893, 92);
+            this.label3.Location = new System.Drawing.Point(568, 92);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 13);
             this.label3.TabIndex = 6;
@@ -196,7 +202,7 @@
             // txtDebug
             // 
             this.txtDebug.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDebug.Location = new System.Drawing.Point(955, 66);
+            this.txtDebug.Location = new System.Drawing.Point(630, 66);
             this.txtDebug.Name = "txtDebug";
             this.txtDebug.ReadOnly = true;
             this.txtDebug.Size = new System.Drawing.Size(98, 20);
@@ -210,7 +216,7 @@
             this.btnHelp});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1065, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(958, 24);
             this.menuStrip1.TabIndex = 18;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -293,7 +299,7 @@
             this.btnAutoSize});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1065, 39);
+            this.toolStrip1.Size = new System.Drawing.Size(958, 39);
             this.toolStrip1.TabIndex = 19;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -399,8 +405,6 @@
             // 
             // btnAutoSize
             // 
-            this.btnAutoSize.Checked = true;
-            this.btnAutoSize.CheckState = System.Windows.Forms.CheckState.Checked;
             this.btnAutoSize.Image = ((System.Drawing.Image)(resources.GetObject("btnAutoSize.Image")));
             this.btnAutoSize.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnAutoSize.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -409,20 +413,73 @@
             this.btnAutoSize.Text = "Автомасштаб";
             this.btnAutoSize.Click += new System.EventHandler(this.btnAutoSize_Click);
             // 
-            // textBox1
+            // txtLogValuemiMin
             // 
-            this.textBox1.Location = new System.Drawing.Point(887, 115);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 374);
-            this.textBox1.TabIndex = 20;
+            this.txtLogValuemiMin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLogValuemiMin.Location = new System.Drawing.Point(737, 67);
+            this.txtLogValuemiMin.MaxLength = 128767;
+            this.txtLogValuemiMin.Multiline = true;
+            this.txtLogValuemiMin.Name = "txtLogValuemiMin";
+            this.txtLogValuemiMin.ReadOnly = true;
+            this.txtLogValuemiMin.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLogValuemiMin.Size = new System.Drawing.Size(103, 424);
+            this.txtLogValuemiMin.TabIndex = 20;
+            // 
+            // txtLogMaxdelValue
+            // 
+            this.txtLogMaxdelValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLogMaxdelValue.Location = new System.Drawing.Point(846, 66);
+            this.txtLogMaxdelValue.MaxLength = 128767;
+            this.txtLogMaxdelValue.Multiline = true;
+            this.txtLogMaxdelValue.Name = "txtLogMaxdelValue";
+            this.txtLogMaxdelValue.ReadOnly = true;
+            this.txtLogMaxdelValue.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLogMaxdelValue.Size = new System.Drawing.Size(103, 424);
+            this.txtLogMaxdelValue.TabIndex = 21;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(568, 69);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 13);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "HЁX";
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // txtMidValue
+            // 
+            this.txtMidValue.Location = new System.Drawing.Point(529, 66);
+            this.txtMidValue.Name = "txtMidValue";
+            this.txtMidValue.ReadOnly = true;
+            this.txtMidValue.Size = new System.Drawing.Size(100, 20);
+            this.txtMidValue.TabIndex = 23;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(449, 69);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(74, 13);
+            this.label2.TabIndex = 24;
+            this.label2.Text = "Среднее по 8";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1065, 501);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(958, 502);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtMidValue);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtLogMaxdelValue);
+            this.Controls.Add(this.txtLogValuemiMin);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.txtDebug);
             this.Controls.Add(this.label7);
@@ -439,6 +496,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(960, 480);
             this.Name = "MainForm";
             this.Text = "График Расходомера";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -490,7 +548,13 @@
         private System.Windows.Forms.ToolStripButton btnScreenshot;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton btnAutoSize;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtLogValuemiMin;
+        private System.Windows.Forms.TextBox txtLogMaxdelValue;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.TextBox txtMidValue;
+        private System.Windows.Forms.Label label2;
     }
 }
 
