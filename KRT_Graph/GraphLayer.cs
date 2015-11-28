@@ -11,7 +11,7 @@ namespace KRT_Graph
     class GraphLayer
     {
         private ZedGraphControl zGraph;
-        private SingleCurve _singleCurves = new SingleCurve();
+        private SingleCurve[] _singleCurves = new SingleCurve[2];
         public GraphLayer(ZedGraphControl zG)
         {
             zGraph = zG;
@@ -120,8 +120,11 @@ namespace KRT_Graph
 
             // Удалим существующие оси Y
             //pane.YAxisList.Clear();
+            _singleCurves[0] = new SingleCurve();
+            _singleCurves[1] = new SingleCurve();
 
-           _singleCurves.AddCurve(pane, "Значение", "Л", Color.DarkGreen, SymbolType.Plus, 4000);
+           _singleCurves[0].AddCurve(pane, "Значение", "Л", Color.DarkGreen, SymbolType.Plus, 4000);
+           _singleCurves[0].AddCurve(pane, "Значение/Макс", "Л", Color.DarkOrange, SymbolType.Plus, 4000);
         }
 
         public void SaveAs()
@@ -129,14 +132,16 @@ namespace KRT_Graph
             zGraph.SaveAs("img");
         }
 
-        public void UpdateData(double data, DateTime time)
+        public void UpdateData(double data, DateTime time, double data2 = 0)
         {
-            _singleCurves.UpdateData(data, time);
+            _singleCurves[0].UpdateData(data, time);
+            _singleCurves[1].UpdateData(data2,time);
         }
 
         public void ClearData()
         {
-            _singleCurves.ClearData();
+            _singleCurves[0].ClearData();
+            _singleCurves[1].ClearData();
         }
 
         public DateTime GetBeginTime()

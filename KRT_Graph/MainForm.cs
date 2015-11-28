@@ -322,10 +322,10 @@ namespace KRT_Graph
                     if (_status == Status.Start)
                     {
                         txtLogValuemiMin.AppendText(y.ToString() + "\r\n");
-                        txtLogMaxdelValue.AppendText(((double)_maxVal /(double)y).ToString() + "\r\n");
+                        txtLogMaxdelValue.AppendText(((double)_maxVal /(double)y).ToString() + "; " + ((double)y*1000.0 / _maxVal).ToString() + "\r\n");
 
                         DateTime x = DateTime.Now.AddTicks(-_timeStart.Ticks);
-                        _graphLayer.UpdateData(y/1000.0,x); //Делим в литры!
+                        _graphLayer.UpdateData(y / 1000.0, x, (double)y / _maxVal); //Делим в литры!
                         _dataSaveLayer.UpdateData(y/1000.0,x);
                     }
                 }
