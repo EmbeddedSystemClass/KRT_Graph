@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -266,15 +267,9 @@ namespace KRT_Graph
         }
 
 
-        
 
-        private void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void ReadPortData(byte[] inBuf, int rxIndex)
         {
-            byte[] inBuf = new byte[256];
-            int rxCount = _comPort.Read(ref inBuf, 2); //Время чтения
-            int rxIndex = 0;
-
-
             //case GetFlowCommand : // расход
             //      FlowTemp = 0;
             //      FlowTemp = getchar();
@@ -282,61 +277,75 @@ namespace KRT_Graph
             //      FlowTemp = (FlowTemp << 8) + getchar(); 
             //      FlowTemp = (FlowTemp << 8) + getchar();
 
+            if (inBuf[rxIndex] == GetFlowCommand)
+            {
+                txtDebug.Text = string.Format("{0:X2} {1:X2} {2:X2} {3:X2} {4:X2}",
+                    inBuf[rxIndex], inBuf[rxIndex + 1], inBuf[rxIndex + 2], inBuf[rxIndex + 3], inBuf[rxIndex + 4]);
+
+
+                //int y = BitConverter.ToInt32(inBuf, rxIndex+1);
+                int y = (((int)inBuf[rxIndex + 1]) << 24) +
+                    (((int)inBuf[rxIndex + 2]) << 16) +
+                    (((int)inBuf[rxIndex + 3]) << 8) +
+                    ((int)inBuf[rxIndex + 4]);
+
+
+                if (y > Math.Max(_maxVal * 10, 30 * 1000)) return; //Всплески
+
+
+                txtValue.Text = y.ToString();
+                txtValueMin.Text = (y - _minVal).ToString();
+
+                y -= _minVal;
+
+                _yMidArr[_yIndex] = y;
+                _yIndex++;
+                _yIndex %= _yMidCnt;
+
+                int temp = 0;
+                for (int i = 0; i < _yMidCnt; i++)
+                {
+                    temp += _yMidArr[(i + _yIndex) % _yMidCnt];
+                }
+                txtMidValue.Text = (temp / _yMidCnt).ToString();
+
+                if (_status == Status.Start)
+                {
+                    txtLogValuemiMin.AppendText(y.ToString() + "\r\n");
+                    txtLogMaxdelValue.AppendText(((double)_maxVal / (double)y).ToString() + "; " + ((double)y * 1000.0 / _maxVal).ToString() + "\r\n");
+
+                    DateTime x = DateTime.Now.AddTicks(-_timeStart.Ticks);
+                    _graphLayer.UpdateData(y / 1000.0, x, (double)y / _maxVal); //Делим в литры!
+                    _dataSaveLayer.UpdateData(y / 1000.0, x);
+                }
+            }
+        }
+
+
+
+        private void ComPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            byte[] inBuf = new byte[256];
+            int rxCount = _comPort.Read(ref inBuf, 2); //Время чтения
+            int rxIndex = 0;
 
             if (rxCount < 5) return; //Не наше
 
+            debugTimer.Stop(); //Дебаг офф
+
             for (rxIndex = 0; rxIndex < rxCount-4; rxIndex++)
             {
-                if (inBuf[rxIndex] == GetFlowCommand)
-                {
-                    txtDebug.Text = string.Format("{0:X2} {1:X2} {2:X2} {3:X2} {4:X2}", 
-                        inBuf[rxIndex], inBuf[rxIndex + 1], inBuf[rxIndex + 2], inBuf[rxIndex + 3], inBuf[rxIndex + 4]);
-
-
-                    //int y = BitConverter.ToInt32(inBuf, rxIndex+1);
-                    int y = (((int) inBuf[rxIndex + 1]) << 24) +
-                        (((int) inBuf[rxIndex + 2]) << 16) + 
-                        (((int) inBuf[rxIndex + 3]) <<8) + 
-                        ((int) inBuf[rxIndex + 4]);
-
-
-                    if(y>Math.Max(_maxVal*10,30*1000)) continue; //Всплески
-
-                    
-                    txtValue.Text = y.ToString();
-                    txtValueMin.Text = (y - _minVal).ToString();
-
-                    y -= _minVal;
-
-                    _yMidArr[_yIndex] = y;
-                    _yIndex++;
-                    _yIndex %= _yMidCnt;
-
-                    int temp = 0;
-                    for (int i = 0; i < _yMidCnt; i++)
-                    {
-                        temp += _yMidArr[(i + _yIndex)%_yMidCnt];
-                    }
-                    txtMidValue.Text = (temp/_yMidCnt).ToString();
-
-                    if (_status == Status.Start)
-                    {
-                        txtLogValuemiMin.AppendText(y.ToString() + "\r\n");
-                        txtLogMaxdelValue.AppendText(((double)_maxVal /(double)y).ToString() + "; " + ((double)y*1000.0 / _maxVal).ToString() + "\r\n");
-
-                        DateTime x = DateTime.Now.AddTicks(-_timeStart.Ticks);
-                        _graphLayer.UpdateData(y / 1000.0, x, (double)y / _maxVal); //Делим в литры!
-                        _dataSaveLayer.UpdateData(y/1000.0,x);
-                    }
-                }
+                ReadPortData(inBuf, rxIndex);
             }
 
         }
 
-   
+
+        private string _programmCompileDate = File.GetLastWriteTime(Application.ExecutablePath).ToString("yyyy-MM-dd");
 
         private void updTimer200ms_Tick(object sender, EventArgs e)
         {
+            this.Text = "График Расходомера " + ((debugTimer.Enabled) ? "[debug mode on]" : _programmCompileDate);
             if (_status == Status.Start)
             {
                 DateTime dtEnd = DateTime.Now.AddTicks(-_timeStart.Ticks);
@@ -418,6 +427,15 @@ namespace KRT_Graph
         private void btnCropTo_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Данная функция ещё не реализована");
+        }
+
+        Random _debugRnd = new Random();
+        private void debugTimer_Tick(object sender, EventArgs e)
+        {
+            int val = 0;
+            val = _debugRnd.Next(1000);
+            byte[] inBuf = {GetFlowCommand,0x00,(byte)(val>>16),(byte)(val>>8),(byte)val,0x00};
+            ReadPortData(inBuf,0);
         }
 
        

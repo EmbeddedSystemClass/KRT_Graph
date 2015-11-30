@@ -120,11 +120,26 @@ namespace KRT_Graph
 
             // Удалим существующие оси Y
             //pane.YAxisList.Clear();
+
+
+            // Включим показ всплывающих подсказок
+            zGraph.IsShowCursorValues = true;
+            zGraph.CursorValueEvent += new ZedGraphControl.CursorValueHandler(zGraph_CursorValueEvent);
+
+
+            //Няшка
             _singleCurves[0] = new SingleCurve();
             _singleCurves[1] = new SingleCurve();
 
            _singleCurves[0].AddCurve(pane, "Значение", "Л", Color.DarkGreen, SymbolType.Plus, 4000);
-           _singleCurves[0].AddCurve(pane, "Значение/Макс", "Л", Color.DarkOrange, SymbolType.Plus, 4000);
+           _singleCurves[1].AddCurve(pane, "Значение/Макс", "Л", Color.DarkOrange, SymbolType.Plus, 4000);
+        }
+
+        private string zGraph_CursorValueEvent(ZedGraphControl sender, GraphPane pane, Point mousePt)
+        {
+            double x, y;
+            pane.ReverseTransform(mousePt, out x, out y);
+            return string.Format("X={0} Y={1}", ((XDate)x).ToString("mm:ss"), y);
         }
 
         public void SaveAs()
