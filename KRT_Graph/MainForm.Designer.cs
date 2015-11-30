@@ -80,9 +80,9 @@
             // 
             // zGraph
             // 
-            this.zGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.zGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.zGraph.Location = new System.Drawing.Point(12, 115);
             this.zGraph.Name = "zGraph";
             this.zGraph.ScrollGrace = 0D;
@@ -228,27 +228,27 @@
             this.btnLoad2,
             this.btnScreenshot2});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.файлToolStripMenuItem.Text = "Файл";
             // 
             // btnSave2
             // 
             this.btnSave2.Name = "btnSave2";
-            this.btnSave2.Size = new System.Drawing.Size(170, 22);
+            this.btnSave2.Size = new System.Drawing.Size(177, 22);
             this.btnSave2.Text = "Сохранить";
             this.btnSave2.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnLoad2
             // 
             this.btnLoad2.Name = "btnLoad2";
-            this.btnLoad2.Size = new System.Drawing.Size(170, 22);
+            this.btnLoad2.Size = new System.Drawing.Size(177, 22);
             this.btnLoad2.Text = "Загрузить";
             this.btnLoad2.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // btnScreenshot2
             // 
             this.btnScreenshot2.Name = "btnScreenshot2";
-            this.btnScreenshot2.Size = new System.Drawing.Size(170, 22);
+            this.btnScreenshot2.Size = new System.Drawing.Size(177, 22);
             this.btnScreenshot2.Text = "Сделать скриншот";
             this.btnScreenshot2.Click += new System.EventHandler(this.btnScreenshot_Click);
             // 
@@ -258,26 +258,26 @@
             this.cmbPort,
             this.cmbBaudRate});
             this.btnPortFind.Name = "btnPortFind";
-            this.btnPortFind.Size = new System.Drawing.Size(44, 20);
+            this.btnPortFind.Size = new System.Drawing.Size(47, 20);
             this.btnPortFind.Text = "Порт";
             this.btnPortFind.DropDownOpening += new System.EventHandler(this.btnPortFind_DropDownOpening);
             // 
             // cmbPort
             // 
             this.cmbPort.Name = "cmbPort";
-            this.cmbPort.Size = new System.Drawing.Size(75, 21);
+            this.cmbPort.Size = new System.Drawing.Size(75, 23);
             this.cmbPort.SelectedIndexChanged += new System.EventHandler(this.cmbPort_SelectedIndexChanged);
             // 
             // cmbBaudRate
             // 
             this.cmbBaudRate.Name = "cmbBaudRate";
-            this.cmbBaudRate.Size = new System.Drawing.Size(75, 21);
+            this.cmbBaudRate.Size = new System.Drawing.Size(75, 23);
             this.cmbBaudRate.SelectedIndexChanged += new System.EventHandler(this.cmbPort_SelectedIndexChanged);
             // 
             // btnHelp
             // 
             this.btnHelp.Name = "btnHelp";
-            this.btnHelp.Size = new System.Drawing.Size(62, 20);
+            this.btnHelp.Size = new System.Drawing.Size(65, 20);
             this.btnHelp.Text = "Справка";
             this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
@@ -310,7 +310,7 @@
             this.btnRecAndPlay.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnRecAndPlay.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnRecAndPlay.Name = "btnRecAndPlay";
-            this.btnRecAndPlay.Size = new System.Drawing.Size(78, 36);
+            this.btnRecAndPlay.Size = new System.Drawing.Size(82, 36);
             this.btnRecAndPlay.Text = "Запись";
             this.btnRecAndPlay.Click += new System.EventHandler(this.btnRecAndPlay_Click);
             // 
@@ -320,7 +320,7 @@
             this.btnPause.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnPause.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPause.Name = "btnPause";
-            this.btnPause.Size = new System.Drawing.Size(73, 36);
+            this.btnPause.Size = new System.Drawing.Size(75, 36);
             this.btnPause.Text = "Пауза";
             this.btnPause.Click += new System.EventHandler(this.btnPause_Click);
             // 
@@ -330,7 +330,7 @@
             this.btnStopAndClear.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnStopAndClear.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnStopAndClear.Name = "btnStopAndClear";
-            this.btnStopAndClear.Size = new System.Drawing.Size(92, 36);
+            this.btnStopAndClear.Size = new System.Drawing.Size(95, 36);
             this.btnStopAndClear.Text = "Очистить";
             this.btnStopAndClear.Click += new System.EventHandler(this.btnStopAndClear_Click);
             // 
@@ -345,7 +345,7 @@
             this.btnSave.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(98, 36);
+            this.btnSave.Size = new System.Drawing.Size(101, 36);
             this.btnSave.Text = "Сохранить";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
@@ -355,7 +355,7 @@
             this.btnLoad.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(95, 36);
+            this.btnLoad.Size = new System.Drawing.Size(97, 36);
             this.btnLoad.Text = "Загрузить";
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
@@ -370,7 +370,7 @@
             this.btnCropFrom.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnCropFrom.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCropFrom.Name = "btnCropFrom";
-            this.btnCropFrom.Size = new System.Drawing.Size(108, 36);
+            this.btnCropFrom.Size = new System.Drawing.Size(110, 36);
             this.btnCropFrom.Text = "Обрезать до";
             this.btnCropFrom.Click += new System.EventHandler(this.btnCropFrom_Click);
             // 
@@ -380,7 +380,7 @@
             this.btnCropTo.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnCropTo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnCropTo.Name = "btnCropTo";
-            this.btnCropTo.Size = new System.Drawing.Size(124, 36);
+            this.btnCropTo.Size = new System.Drawing.Size(130, 36);
             this.btnCropTo.Text = "Обрезать после";
             this.btnCropTo.Click += new System.EventHandler(this.btnCropTo_Click);
             // 
@@ -395,7 +395,7 @@
             this.btnScreenshot.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnScreenshot.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnScreenshot.Name = "btnScreenshot";
-            this.btnScreenshot.Size = new System.Drawing.Size(94, 36);
+            this.btnScreenshot.Size = new System.Drawing.Size(101, 36);
             this.btnScreenshot.Text = "Скриншот";
             this.btnScreenshot.Click += new System.EventHandler(this.btnScreenshot_Click);
             // 
@@ -410,14 +410,14 @@
             this.btnAutoSize.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnAutoSize.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnAutoSize.Name = "btnAutoSize";
-            this.btnAutoSize.Size = new System.Drawing.Size(111, 36);
+            this.btnAutoSize.Size = new System.Drawing.Size(119, 36);
             this.btnAutoSize.Text = "Автомасштаб";
             this.btnAutoSize.Click += new System.EventHandler(this.btnAutoSize_Click);
             // 
             // txtLogValuemiMin
             // 
-            this.txtLogValuemiMin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLogValuemiMin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLogValuemiMin.Location = new System.Drawing.Point(737, 67);
             this.txtLogValuemiMin.MaxLength = 128767;
             this.txtLogValuemiMin.Multiline = true;
@@ -429,8 +429,8 @@
             // 
             // txtLogMaxdelValue
             // 
-            this.txtLogMaxdelValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtLogMaxdelValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLogMaxdelValue.Location = new System.Drawing.Point(846, 66);
             this.txtLogMaxdelValue.MaxLength = 128767;
             this.txtLogMaxdelValue.Multiline = true;
@@ -452,7 +452,13 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.DefaultExt = "krt";
+            this.openFileDialog1.Filter = "Все файлы|*.*|KRT|*.krt";
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "krt";
+            this.saveFileDialog1.FileName = "graph01";
             // 
             // txtMidValue
             // 
@@ -473,7 +479,6 @@
             // 
             // debugTimer
             // 
-            this.debugTimer.Enabled = true;
             this.debugTimer.Interval = 1000;
             this.debugTimer.Tick += new System.EventHandler(this.debugTimer_Tick);
             // 
